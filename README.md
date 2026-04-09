@@ -2,7 +2,7 @@
 
 React portal for Genlogs — city-to-city carrier search with Google Maps integration.
 
-**Live app:** https://genlogs-frontend-jlfypm7cy-christian-bastidas-projects.vercel.app
+**Live app:** https://genlogs-frontend-lyart.vercel.app/
 
 ---
 
