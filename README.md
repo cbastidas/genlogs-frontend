@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Genlogs Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React portal for Genlogs — city-to-city carrier search with Google Maps integration.
 
-## Available Scripts
+**Live app:** https://genlogs-frontend-jlfypm7cy-christian-bastidas-projects.vercel.app
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React 18
+- Google Maps JavaScript API — embedded map
+- Places API — city autocomplete
+- Directions API — route alternatives
+- Axios — HTTP requests to backend
+- Deployed on Vercel
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- City autocomplete powered by Google Places
+- Embedded Google Maps showing up to 3 route alternatives between cities
+- Carrier results list fetched from the FastAPI backend
+- Color-coded routes (blue, green, red)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── App.js        # Main component — search, map, carriers
+└── App.css       # Styles
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Local Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/cbastidas/genlogs-frontend.git
+cd genlogs-frontend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Create a `.env` file in the root:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+REACT_APP_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+REACT_APP_BACKEND_URL=https://genlogs-backend.onrender.com
+```
 
-## Learn More
+Then run:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+App available at http://localhost:3000
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Deployment
 
-### Analyzing the Bundle Size
+Deployed on Vercel. Every push to main triggers an automatic redeploy.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Environment variables must be set in the Vercel project settings.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Related
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Backend repo: https://github.com/cbastidas/genlogs-backend
+- Backend live: https://genlogs-backend.onrender.com
