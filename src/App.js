@@ -6,7 +6,6 @@ import "./App.css";
 
 const libraries = ["places"];
 
-// ── Autocomplete input component ──────────────────────────────────────────
 function PlacesInput({ label, onSelect }) {
   const {
     ready,
@@ -46,7 +45,6 @@ function PlacesInput({ label, onSelect }) {
   );
 }
 
-// ── Main App ───────────────────────────────────────────────────────────────
 export default function App() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -56,6 +54,8 @@ export default function App() {
   const [fromCity, setFromCity] = useState(null);
   const [toCity, setToCity] = useState(null);
   const [directions, setDirections] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 39.5, lng: -98.35 });
+  const [mapZoom, setMapZoom] = useState(4);
   const [carriers, setCarriers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -68,28 +68,30 @@ export default function App() {
     setDirections([]);
 
     try {
-      // Fetch up to 3 routes from Google Directions API
+      // Request directions with alternative routes
       const directionsService = new window.google.maps.DirectionsService();
-      const results = await Promise.all(
-        [
-          window.google.maps.TravelMode.DRIVING,
-        ].map(() =>
-          directionsService.route({
-            origin: { lat: fromCity.lat, lng: fromCity.lng },
-            destination: { lat: toCity.lat, lng: toCity.lng },
-            travelMode: window.google.maps.TravelMode.DRIVING,
-            provideRouteAlternatives: true,
-          })
-        )
-      );
-      // Take up to 3 alternative routes
-      const routes = results[0].routes.slice(0, 3).map((_, i) => ({
-        ...results[0],
-        routes: [results[0].routes[i]],
+      const result = await directionsService.route({
+        origin: { lat: fromCity.lat, lng: fromCity.lng },
+        destination: { lat: toCity.lat, lng: toCity.lng },
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        provideRouteAlternatives: true,
+      });
+
+      // Build one DirectionsResult per alternative route
+      const routes = result.routes.slice(0, 3).map((_, i) => ({
+        ...result,
+        routes: [result.routes[i]],
       }));
       setDirections(routes);
 
-      // Fetch carriers from our FastAPI backend
+      // Center map between the two cities
+      setMapCenter({
+        lat: (fromCity.lat + toCity.lat) / 2,
+        lng: (fromCity.lng + toCity.lng) / 2,
+      });
+      setMapZoom(6);
+
+      // Fetch carriers from FastAPI backend
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/carriers`,
         {
@@ -107,6 +109,8 @@ export default function App() {
   };
 
   if (!isLoaded) return <div className="loading">Loading maps...</div>;
+
+  const routeColors = ["#2563EB", "#16A34A", "#DC2626"];
 
   return (
     <div className="app">
@@ -128,11 +132,10 @@ export default function App() {
       </div>
 
       <div className="content">
-        {/* Map */}
         <div className="map-container">
           <GoogleMap
-            zoom={5}
-            center={{ lat: 39.5, lng: -98.35 }}
+            zoom={mapZoom}
+            center={mapCenter}
             mapContainerClassName="map"
           >
             {directions.map((dir, i) => (
@@ -141,8 +144,9 @@ export default function App() {
                 directions={dir}
                 options={{
                   polylineOptions: {
-                    strokeColor: ["#2563EB", "#16A34A", "#DC2626"][i],
-                    strokeWeight: 4,
+                    strokeColor: routeColors[i],
+                    strokeWeight: 5,
+                    strokeOpacity: 0.8,
                   },
                   suppressMarkers: i > 0,
                 }}
@@ -151,13 +155,25 @@ export default function App() {
           </GoogleMap>
         </div>
 
-        {/* Carriers list */}
         {carriers.length > 0 && (
           <div className="carriers-panel">
             <h2>Top Carriers</h2>
             <p className="route-label">
               {fromCity?.description} → {toCity?.description}
             </p>
+            {directions.length > 1 && (
+              <div className="routes-legend">
+                {directions.map((_, i) => (
+                  <div key={i} className="legend-item">
+                    <span
+                      className="legend-dot"
+                      style={{ background: routeColors[i] }}
+                    />
+                    <span>Route {i + 1}</span>
+                  </div>
+                ))}
+              </div>
+            )}
             <ul className="carriers-list">
               {carriers.map((carrier, i) => (
                 <li key={i} className="carrier-card">
