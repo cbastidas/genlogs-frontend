@@ -1,38 +1,228 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  background: #1e2a4a;
+  color: white;
+  padding: 24px 32px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* ── Search panel ── */
+.search-panel {
+  display: flex;
+  gap: 16px;
+  padding: 24px 32px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-wrapper label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper input {
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper input:focus {
+  border-color: #2563eb;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  list-style: none;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+}
+
+.suggestions li {
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.suggestions li:last-child {
+  border-bottom: none;
+}
+
+.suggestions li:hover {
+  background: #f8fafc;
+}
+
+.search-btn {
+  padding: 10px 28px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  height: 40px;
+}
+
+.search-btn:hover {
+  background: #1d4ed8;
+}
+
+.search-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* ── Content ── */
+.content {
+  display: flex;
+  flex: 1;
+  gap: 0;
+}
+
+/* ── Map ── */
+.map-container {
+  flex: 1;
+}
+
+.map {
+  width: 100%;
+  height: calc(100vh - 160px);
+}
+
+/* ── Carriers panel ── */
+.carriers-panel {
+  width: 320px;
+  background: white;
+  border-left: 1px solid #e2e8f0;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.carriers-panel h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.route-label {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.carriers-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.carrier-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: box-shadow 0.2s;
+}
+
+.carrier-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.carrier-rank {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2563eb;
+  min-width: 24px;
+}
+
+.carrier-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.carrier-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.carrier-trucks {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ── States ── */
+.loading {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  font-size: 16px;
+  color: #64748b;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error {
+  padding: 16px 32px;
+  color: #dc2626;
+  font-size: 14px;
 }
