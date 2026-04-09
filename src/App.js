@@ -127,7 +127,7 @@ export default function App() {
           onClick={handleSearch}
           disabled={!fromCity || !toCity || loading}
         >
-          {loading ? "Searching..." : "Search"}
+          {loading ? <span className="spinner"/> : "Search"}
         </button>
       </div>
 
@@ -192,6 +192,19 @@ export default function App() {
 
         {error && <p className="error">{error}</p>}
       </div>
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <span className="footer-brand">Genlogs</span>
+          <span className="footer-sep">·</span>
+          <span className="footer-tagline">Carrier Intelligence Platform</span>
+        </div>
+        <div className="footer-links">
+          <a href="https://github.com/cbastidas/genlogs-frontend" target="_blank" rel="noreferrer">Frontend</a>
+          <a href="https://github.com/cbastidas/genlogs-backend" target="_blank" rel="noreferrer">Backend</a>
+          <a href="https://genlogs-backend.onrender.com/docs" target="_blank" rel="noreferrer">API Docs</a>
+        </div>
+      </footer>
     </div>
   );
 }

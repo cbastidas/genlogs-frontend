@@ -127,6 +127,21 @@ body {
   cursor: not-allowed;
 }
 
+/* ── Loading spinner ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
 /* ── Content ── */
 .content {
   display: flex;
@@ -247,4 +262,52 @@ body {
   height: 12px;
   border-radius: 50%;
   display: inline-block;
+}
+
+/* ── Footer ── */
+.footer {
+  background: #1e2a4a;
+  color: #94a3b8;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-brand {
+  color: white;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.footer-sep {
+  color: #475569;
+}
+
+.footer-tagline {
+  color: #64748b;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #94a3b8;
 }
